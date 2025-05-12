@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function Card({contribution}) {
 
 const now = new Date().toISOString();
