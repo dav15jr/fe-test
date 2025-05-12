@@ -3,6 +3,7 @@
 ## Installation
 
 `pip install -r requirements.txt`
+`pip install -r requirements-windows.txt` - For windows PC
 
 ## Running the server
 

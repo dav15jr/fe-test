@@ -68,7 +68,7 @@ def _ids(l: list):
 
 
 @app.get("/contributions/")
-async def list_contributions(skip: int = 0, limit: int = 30,
+async def list_contributions(skip: int = 0, limit: int = 50,
                              order_by: ContributionOrder = Query(default=ContributionOrder.id),
                              id: Optional[List[str]] = Query(None),
                              owner: Optional[str] = Query(None),
