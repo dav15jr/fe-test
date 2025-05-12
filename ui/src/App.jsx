@@ -28,7 +28,7 @@ function App() {
     indexOfLastItem
   );
 
-  const fetchContributions = async () => {
+  const fetchContributions = async () => { // Fetch contributions from the API
     try {
       const response = await api.get('/contributions');
       setAllContributions(response.data.contributions);
@@ -42,7 +42,7 @@ function App() {
   };
 
   useEffect(() => {
-    // Fetch contributions when the component mounts with added delay for loading
+    // Added delay for loading screen
     setTimeout(fetchContributions, 2000);
   }, []);
 
@@ -64,7 +64,7 @@ function App() {
       const params = new URLSearchParams(searchParams);
       if (search.length > 0) {
         params.set('search', search);
-        const filtered = allContributions.filter(cont =>
+        const filtered = allContributions.filter(cont => //filter contributions based on search
           cont[searchType].toLowerCase().includes(search.trim().toLowerCase())
         );
         setContributions(filtered);
@@ -78,7 +78,7 @@ function App() {
       const prev = searchParams.toString();
       const next = params.toString();
       if (prev !== next) {
-        setSearchParams(params); // only set if changed
+        setSearchParams(params); // only set params if they changed
       }
     },
     [searchParams, searchType, allContributions, setSearchParams]
