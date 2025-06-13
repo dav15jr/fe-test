@@ -33,11 +33,10 @@ function App() {
       const response = await api.get('/contributions');
       setAllContributions(response.data.contributions);
       setContributions(response.data.contributions);
-      setLoading(false);
     } catch (error) {
-      setLoading(false);
       setError(error.message);
-      throw error;
+    } finally{
+      setLoading(false);
     }
   };
 
@@ -46,18 +45,23 @@ function App() {
     setTimeout(fetchContributions, 2000);
   }, []);
 
-  // Update URL when filters change
+  // Update search params when currentPage, searchType, or itemsPerPage changes
   useEffect(() => {
-    const params = new URLSearchParams(searchParams);
-    params.set('page', currentPage.toString());
-    params.set('searchType', searchType);
-    params.set('perPage', itemsPerPage.toString());
-    if (searchParams.get('search')) {
-      params.set('search', searchParams.get('search'));
-    }
+    setSearchParams(prev => {
+      const params = new URLSearchParams(prev);
+      params.set('page', currentPage.toString());
+      params.set('searchType', searchType);
+      params.set('perPage', itemsPerPage.toString());
 
-    setSearchParams(params);
-  }, [currentPage, searchType, itemsPerPage, setSearchParams, searchParams]);
+      // Keep existing search if it exists
+      const existingSearch = params.get('search');
+      if (existingSearch) {
+        params.set('search', existingSearch);
+      }
+
+      return params;
+    });
+  }, [currentPage, searchType, itemsPerPage, setSearchParams]);
 
   const handleSearch = useCallback(
     search => {
