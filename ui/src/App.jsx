@@ -21,21 +21,22 @@ function App() {
   );
 
   const totalPages = Math.ceil(contributions.length / itemsPerPage);
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentContributions = contributions.slice(
+  const indexOfLastItem = currentPage * itemsPerPage; //Calculate the index of the last item on the current page
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage; // Calculate the index of the first item on the current page
+  const currentContributions = contributions.slice( // Calculate the current contributions based on pagination
     indexOfFirstItem,
     indexOfLastItem
   );
 
-  const fetchContributions = async () => { // Fetch contributions from the API
+  const fetchContributions = async () => {
+    // Fetch contributions from the API
     try {
       const response = await api.get('/contributions');
       setAllContributions(response.data.contributions);
       setContributions(response.data.contributions);
     } catch (error) {
       setError(error.message);
-    } finally{
+    } finally {
       setLoading(false);
     }
   };
@@ -68,8 +69,11 @@ function App() {
       const params = new URLSearchParams(searchParams);
       if (search.length > 0) {
         params.set('search', search);
-        const filtered = allContributions.filter(cont => //filter contributions based on search
-          cont[searchType].toLowerCase().includes(search.trim().toLowerCase())
+        const filtered = allContributions.filter(
+          (
+            cont //filter contributions based on search
+          ) =>
+            cont[searchType].toLowerCase().includes(search.trim().toLowerCase())
         );
         setContributions(filtered);
       } else {
