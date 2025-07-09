@@ -27,7 +27,8 @@ function App() {
     indexOfFirstItem,
     indexOfLastItem
   );
-
+  const timeNow = new Date().toISOString();
+  
   const fetchContributions = async () => {
     // Fetch contributions from the API
     try {
@@ -165,7 +166,7 @@ function App() {
             <div className="flex flex-col items-center mb-10">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
                 {currentContributions.map(contribution => (
-                  <Card key={contribution.id} contribution={contribution} />
+                  <Card key={contribution.id} contribution={contribution} timeNow={timeNow} />
                 ))}
               </div>
               <div className="flex justify-center mt-6 gap-2">

@@ -1,19 +1,19 @@
-export default function Card({contribution}) {
+export default function Card({contribution, timeNow}) {
 
-const now = new Date().toISOString();
-const start = contribution.startTime;
-const end = contribution.endTime;
+
+const startTime = contribution.startTime;
+const endTime = contribution.endTime;
 
 let status = '';
 let statusColor = '';
 
-if (now > end) {
+if (timeNow > endTime) {
   status = 'Completed';
   statusColor = 'text-red-500  border-red-600 bg-red-100';
-} else if (now >= start && now <= end) {
+} else if (timeNow >= startTime && timeNow <= endTime) {
   status = 'Active';
   statusColor = 'text-green-500 border-green-600 bg-green-100';
-} else if (now < start) {
+} else if (timeNow < startTime) {
   status = 'Scheduled';
   statusColor = 'text-yellow-600 border-yellow-600 bg-yellow-100';
 }
